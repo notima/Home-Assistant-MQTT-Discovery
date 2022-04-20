@@ -153,3 +153,7 @@ void mqttDeviceTrackerToJson(char* json, MqttDeviceTracker tracker){
         jsonAddStringProperty(json, "uniq_id", tracker.unique_id);
     jsonClose(json);
 }
+
+bool mgos_Home_Assistant_MQTT_Discovery_C_lib_init(void) {
+  return true;
+}
