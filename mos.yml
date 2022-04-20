@@ -1,0 +1,18 @@
+author: Oliver Norin
+description: Home Assistant MQTT Discovery helper library 
+type: lib
+version: 1.0
+manifest_version: 2017-09-29
+cflags:
+  - "-fms-extensions"
+cxxflags:
+  - "-fms-extensions"
+sources:
+  - src
+includes:
+  - include
+config_schema:
+  
+tags:
+  - home-assistant
+  - c
