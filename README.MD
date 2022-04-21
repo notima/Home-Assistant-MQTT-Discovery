@@ -5,11 +5,8 @@ This library provides data structures and serialization functions for Home Assis
 ## Example usage
 
 ```c
-MqttSensor sensor;
-MqttDevice device;
-// clear the structs
-memset(&sensor, 0, sizeof(MqttSensor));
-memset(&device, 0, sizeof(MqttDevice));
+HASensor sensor = HASensor();
+HADevice device = HADevice();
 sensor.name = "test sensor";
 sensor.state_topic = "hello/world/foo/bar";
 sensor.force_update = true;
@@ -22,8 +19,8 @@ sensor.device->name = "test device";
 sensor.enabled_by_default = true;
 sensor.expire_after = 20;
 // make sure to allocate enough memory
-char* json = malloc(255);
-mqttSensorToJson(json, sensor); // result is written to json
+char* json = (char*)malloc(255);
+haSensorToJson(json, sensor); // result is written to json
 ```
 
 After running the above code, the json buffer will contain the following:

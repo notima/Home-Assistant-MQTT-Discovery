@@ -1,11 +1,7 @@
 #include "stdint.h"
 #include "stdbool.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct MqttDevice {
+typedef struct HADevice {
     char* configuration_url;
     char* identifiers[4];
     uint8_t numIdentifiers;
@@ -15,11 +11,11 @@ typedef struct MqttDevice {
     char* suggested_area;
     char* sw_version;
     char* via_device;
-} MqttDevice;
+} HADevice;
 
-typedef struct MqttEntity {
+typedef struct HAEntity {
     char* availability_topic;
-    MqttDevice* device;
+    HADevice* device;
     char* encoding;
     char* entity_category;
     char* icon;
@@ -30,10 +26,9 @@ typedef struct MqttEntity {
     uint8_t qos;
     char* state_topic;
     char* unique_id;
-} MqttEntity;
+} HAEntity;
 
-typedef struct MqttSensor {
-    struct MqttEntity;
+typedef struct HASensor : HAEntity {
     char* device_class;
     bool enabled_by_default;
     int expire_after;
@@ -41,15 +36,11 @@ typedef struct MqttSensor {
     char* last_reset;
     char* state_class;
     char* unit_of_measurement;
-} MqttSensor;
+} HASensor;
 
-typedef struct MqttDeviceTracker {
-    struct MqttEntity;
-} MqttDeviceTracker;
+typedef struct HADeviceTracker : HAEntity {
+    
+} HADeviceTracker;
 
-void mqttSensorToJson(char* json, MqttSensor sensor);
-void mqttDeviceTrackerToJson(char* json, MqttDeviceTracker tracker);
-
-#ifdef __cplusplus
-}
-#endif
+void haSensorToJson(char* json, HASensor sensor);
+void haDeviceTrackerToJson(char* json, HADeviceTracker tracker);

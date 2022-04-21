@@ -1,10 +1,6 @@
-#include "discovery.h"
+#include "ha_discovery.hpp"
 #include "string.h"
 #include "stdio.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void jsonOpen(char* json) {
     json[0] = '\0';
@@ -75,7 +71,7 @@ void jsonAddStringList(char* json, char* name, char* entries[], int size) {
     strcat(json, list);
 }
 
-void mqttDeviceToJson(char* json, MqttDevice device) {
+void haDeviceToJson(char* json, HADevice device) {
     jsonOpen(json);
     if(device.numIdentifiers)
         jsonAddStringList(json, "ids", device.identifiers, device.numIdentifiers);
@@ -96,72 +92,58 @@ void mqttDeviceToJson(char* json, MqttDevice device) {
     jsonClose(json);
 }
 
-void mqttSensorToJson(char* json, MqttSensor sensor) {
-    jsonOpen(json);
-    if(sensor.availability_topic)
-        jsonAddStringProperty(json, "avty_t", sensor.availability_topic);
-    if(sensor.device) {
+void addEntityPropertiesToJson(char* json, HAEntity entity) {
+    if(entity.availability_topic)
+        jsonAddStringProperty(json, "avty_t", entity.availability_topic);
+    if(entity.device) {
         char device[255];
-        mqttDeviceToJson(device, *sensor.device);
+        haDeviceToJson(device, *entity.device);
         jsonAddObjProperty(json, "dev", device);
     }
+    if(entity.entity_category)
+        jsonAddStringProperty(json, "ent_cat", entity.entity_category);
+    if(entity.icon)
+        jsonAddStringProperty(json, "ic", entity.icon);
+    if(entity.name)
+        jsonAddStringProperty(json, "name", entity.name);
+    if(entity.object_id)
+        jsonAddStringProperty(json, "obj_id", entity.object_id);
+    if(entity.payload_available)
+        jsonAddStringProperty(json, "pl_avail", entity.payload_available);
+    if(entity.payload_not_available)
+        jsonAddStringProperty(json, "pl_not_avail", entity.payload_not_available);
+    if(entity.qos)
+        jsonAddIntegerProperty(json, "qos", entity.qos);
+    if(entity.state_topic)
+        jsonAddStringProperty(json, "stat_t", entity.state_topic);
+    if(entity.unique_id)
+        jsonAddStringProperty(json, "uniq_id", entity.unique_id);
+}
+
+void haSensorToJson(char* json, HASensor sensor) {
+    jsonOpen(json);
+    addEntityPropertiesToJson(json, sensor);
     if(sensor.device_class) 
         jsonAddStringProperty(json, "dev_cla", sensor.device_class);
     if(!sensor.enabled_by_default)
         jsonAddBooleanProperty(json, "enabled_by_default", sensor.entity_category);
-    if(sensor.entity_category)
-        jsonAddStringProperty(json, "ent_cat", sensor.entity_category);
     if(sensor.expire_after)
         jsonAddIntegerProperty(json, "exp_aft", sensor.expire_after);
     if(sensor.force_update)
         jsonAddBooleanProperty(json, "frc_upd", sensor.force_update);
-    if(sensor.icon)
-        jsonAddStringProperty(json, "ic", sensor.icon);
-    if(sensor.name)
-        jsonAddStringProperty(json, "name", sensor.name);
-    if(sensor.object_id)
-        jsonAddStringProperty(json, "obj_id", sensor.object_id);
     if(sensor.last_reset)
         jsonAddStringProperty(json, "last_reset", sensor.last_reset);
     if(sensor.state_class)
         jsonAddStringProperty(json, "stat_cla", sensor.state_class);
-    if(sensor.state_topic)
-        jsonAddStringProperty(json, "stat_t", sensor.state_topic);
-    if(sensor.unique_id)
-        jsonAddStringProperty(json, "uniq_id", sensor.unique_id);
     jsonClose(json);
 }
 
-void mqttDeviceTrackerToJson(char* json, MqttDeviceTracker tracker){
+void haDeviceTrackerToJson(char* json, HADeviceTracker tracker){
     jsonOpen(json);
-    if(tracker.availability_topic)
-        jsonAddStringProperty(json, "avty_t", tracker.availability_topic);
-    if(tracker.device) {
-        char device[255];
-        mqttDeviceToJson(device, *tracker.device);
-        jsonAddObjProperty(json, "dev", device);
-    }
-    if(tracker.icon)
-        jsonAddStringProperty(json, "ic", tracker.icon);
-    if(tracker.name)
-        jsonAddStringProperty(json, "name", tracker.name);
-    if(tracker.object_id)
-        jsonAddStringProperty(json, "obj_id", tracker.object_id);
-    if(tracker.payload_available)
-        jsonAddStringProperty(json, "pl_avail", tracker.payload_available);
-    if(tracker.payload_not_available)
-        jsonAddStringProperty(json, "pl_not_avail", tracker.payload_not_available);
-    if(tracker.state_topic)
-        jsonAddStringProperty(json, "stat_t", tracker.state_topic);
-    if(tracker.unique_id)
-        jsonAddStringProperty(json, "uniq_id", tracker.unique_id);
+    addEntityPropertiesToJson(json, tracker);
     jsonClose(json);
 }
 
 bool mgos_Home_Assistant_MQTT_Discovery_C_lib_init(void) {
   return true;
 }
-
-#ifdef __cplusplus
-}
-#endif

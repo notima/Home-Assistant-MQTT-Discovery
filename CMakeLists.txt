@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
-project(home_assistant_mqtt_discovery_lib C)
+project(home_assistant_mqtt_discovery_lib CXX)
 add_definitions(-fms-extensions)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 set(INCLUDE ./include)
 set(SRC ./src)
@@ -11,14 +11,14 @@ include_directories(${INCLUDE})
 
 add_executable(
     test_sensor 
-    ${TEST}/test_sensor.c
-    ${SRC}/discovery.c 
+    ${TEST}/test_sensor.cpp
+    ${SRC}/ha_discovery.cpp
 )
 
 add_executable(
     test_tracker
-    ${TEST}/test_tracker.c
-    ${SRC}/discovery.c 
+    ${TEST}/test_tracker.cpp
+    ${SRC}/ha_discovery.cpp
 )
 
 enable_testing()
