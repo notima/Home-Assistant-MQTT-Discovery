@@ -144,6 +144,6 @@ void haDeviceTrackerToJson(char* json, HADeviceTracker tracker){
     jsonClose(json);
 }
 
-bool mgos_Home_Assistant_MQTT_Discovery_C_lib_init(void) {
+bool mgos_Home_Assistant_MQTT_Discovery(void) {
   return true;
 }
