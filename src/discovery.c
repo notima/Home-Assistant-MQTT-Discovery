@@ -2,6 +2,10 @@
 #include "string.h"
 #include "stdio.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void jsonOpen(char* json) {
     json[0] = '\0';
     strcat(json, "{");
@@ -157,3 +161,7 @@ void mqttDeviceTrackerToJson(char* json, MqttDeviceTracker tracker){
 bool mgos_Home_Assistant_MQTT_Discovery_C_lib_init(void) {
   return true;
 }
+
+#ifdef __cplusplus
+}
+#endif
