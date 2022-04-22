@@ -15,6 +15,7 @@ typedef struct HADevice {
 
 typedef struct HAEntity {
     char* availability_topic;
+    char* command_topic;
     HADevice* device;
     char* encoding;
     char* entity_category;
@@ -41,6 +42,10 @@ typedef struct HASensor : HAEntity {
 typedef struct HADeviceTracker : HAEntity {
     
 } HADeviceTracker;
+
+typedef struct HAButton : HAEntity {
+    char* payload_press;
+};
 
 void haSensorToJson(char* json, HASensor sensor);
 void haDeviceTrackerToJson(char* json, HADeviceTracker tracker);

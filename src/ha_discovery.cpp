@@ -95,6 +95,8 @@ void haDeviceToJson(char* json, HADevice device) {
 void addEntityPropertiesToJson(char* json, HAEntity entity) {
     if(entity.availability_topic)
         jsonAddStringProperty(json, "avty_t", entity.availability_topic);
+    if(entity.command_topic)
+        jsonAddStringProperty(json, "cmd_t", entity.command_topic);
     if(entity.device) {
         char device[255];
         haDeviceToJson(device, *entity.device);
@@ -135,6 +137,8 @@ void haSensorToJson(char* json, HASensor sensor) {
         jsonAddStringProperty(json, "last_reset", sensor.last_reset);
     if(sensor.state_class)
         jsonAddStringProperty(json, "stat_cla", sensor.state_class);
+    if(sensor.unit_of_measurement)
+        jsonAddStringProperty(json, "unit_of_meas", sensor.unit_of_measurement);
     jsonClose(json);
 }
 
