@@ -49,3 +49,4 @@ typedef struct HAButton : HAEntity {
 
 void haSensorToJson(char* json, HASensor sensor);
 void haDeviceTrackerToJson(char* json, HADeviceTracker tracker);
+void haButtonToJson(char* json, HAButton button);

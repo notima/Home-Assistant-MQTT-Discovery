@@ -147,3 +147,10 @@ void haDeviceTrackerToJson(char* json, HADeviceTracker tracker){
     addEntityPropertiesToJson(json, tracker);
     jsonClose(json);
 }
+
+void haButtonToJson(char* json, HAButton button){
+    jsonOpen(json);
+    addEntityPropertiesToJson(json, button);
+    jsonAddStringProperty(json, "payload_press", button.payload_press);
+    jsonClose(json);
+}
