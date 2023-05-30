@@ -1,7 +1,7 @@
 #include "stdint.h"
 #include "stdbool.h"
 
-typedef struct HADevice {
+struct HADevice {
     char* configuration_url;
     char* identifiers[4];
     uint8_t numIdentifiers;
@@ -11,9 +11,9 @@ typedef struct HADevice {
     char* suggested_area;
     char* sw_version;
     char* via_device;
-} HADevice;
+};
 
-typedef struct HAEntity {
+struct HAEntity {
     char* availability_topic;
     char* command_topic;
     HADevice* device;
@@ -27,9 +27,9 @@ typedef struct HAEntity {
     uint8_t qos;
     char* state_topic;
     char* unique_id;
-} HAEntity;
+};
 
-typedef struct HASensor : HAEntity {
+struct HASensor : HAEntity {
     char* device_class;
     bool enabled_by_default;
     int expire_after;
@@ -37,13 +37,13 @@ typedef struct HASensor : HAEntity {
     char* last_reset;
     char* state_class;
     char* unit_of_measurement;
-} HASensor;
+};
 
-typedef struct HADeviceTracker : HAEntity {
+struct HADeviceTracker : HAEntity {
     
-} HADeviceTracker;
+};
 
-typedef struct HAButton : HAEntity {
+struct HAButton : HAEntity {
     char* payload_press;
 };
 

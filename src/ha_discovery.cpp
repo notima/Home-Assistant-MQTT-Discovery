@@ -17,7 +17,7 @@ void jsonAddSeparatorIfNeeded(char* json) {
     }
 }
 
-void jsonAddStringProperty(char* json, char* name, char* value) {
+void jsonAddStringProperty(char* json, const char* name, char* value) {
     jsonAddSeparatorIfNeeded(json);
     int len = strlen(name) + strlen(value) + 6;
     char property[len];
@@ -26,7 +26,7 @@ void jsonAddStringProperty(char* json, char* name, char* value) {
     strcat(json, property);
 }
 
-void jsonAddBooleanProperty(char* json, char* name, bool value) {
+void jsonAddBooleanProperty(char* json, const char* name, bool value) {
     jsonAddSeparatorIfNeeded(json);
     int len = strlen(name) + 9;
     char property[len];
@@ -35,7 +35,7 @@ void jsonAddBooleanProperty(char* json, char* name, bool value) {
     strcat(json, property);
 }
 
-void jsonAddIntegerProperty(char* json, char* name, int value) {
+void jsonAddIntegerProperty(char* json, const char* name, int value) {
     jsonAddSeparatorIfNeeded(json);
     int len = strlen(name) + 9;
     char property[len];
@@ -44,7 +44,7 @@ void jsonAddIntegerProperty(char* json, char* name, int value) {
     strcat(json, property);
 }
 
-void jsonAddObjProperty(char* json, char* name, char* objJson) {
+void jsonAddObjProperty(char* json, const char* name, char* objJson) {
     jsonAddSeparatorIfNeeded(json);
     int len = strlen(name) + strlen(objJson) + 2;
     char property[len];
@@ -53,7 +53,7 @@ void jsonAddObjProperty(char* json, char* name, char* objJson) {
     strcat(json, property);
 }
 
-void jsonAddStringList(char* json, char* name, char* entries[], int size) {
+void jsonAddStringList(char* json, const char* name, char* entries[], int size) {
     jsonAddSeparatorIfNeeded(json);
     strcat(json, "\"");
     strcat(json, name);
