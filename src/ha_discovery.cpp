@@ -141,6 +141,8 @@ void haSensorToJson(char* json, HASensor sensor) {
         jsonAddStringProperty(json, "unit_of_meas", sensor.unit_of_measurement);
     if(sensor.name)
         jsonAddStringProperty(json, "name", sensor.name);
+    if(sensor.value_template)
+        jsonAddStringProperty(json, "val_tpl", sensor.value_template);
     jsonClose(json);
 }
 

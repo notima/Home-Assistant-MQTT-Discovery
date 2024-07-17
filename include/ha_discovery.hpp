@@ -37,6 +37,7 @@ struct HASensor : HAEntity {
     char* last_reset;
     char* state_class;
     char* unit_of_measurement;
+    char* value_template;
 };
 
 struct HADeviceTracker : HAEntity {
